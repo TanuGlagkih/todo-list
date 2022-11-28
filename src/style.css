@@ -1,0 +1,17 @@
+@font-face {
+    font-family: 'Montserrat-Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Montserrat-Regular'),
+        url('/src/assets/fonts/Montserrat-Regular.woff2') format('woff2'),
+        url('/src/assets/fonts/Montserrat-Regular.woff') format('woff'),
+        url('/src/assets/fonts/Montserrat-Regular.ttf') format('ttf'),
+        url('/src/assets/fonts/Montserrat-Regular.eot') format('eot');
+}
+
+html body {
+    background-color: #99FFCC;
+    margin: 0;
+    font-family: 'Montserrat-Regular';
+    font-style: normal;
+}

@@ -1,0 +1,25 @@
+.box {
+    box-sizing: border-box;
+    width: 65vw;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: white;
+    margin-bottom: 5vh;
+}
+
+.titleBox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.checkbox {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+}
+
+.description {}
+
+.time {}
