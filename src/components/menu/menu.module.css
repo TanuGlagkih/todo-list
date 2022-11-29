@@ -3,7 +3,7 @@
     height: 400px;
     background-color: white;
     border-radius: 5px;
-    margin: 11vh 1vw;
+    margin: 3vh 1vw 0 1vw;
 
     display: flex;
     flex-direction: column;
@@ -44,4 +44,21 @@
     font-weight: 600;
     margin-left: 15px;
     color: red;
+}
+
+@media (max-width: 1400px) {
+    .actions {
+        flex-direction: row;
+        width: 70vw;
+        height: 150px;
+    }
+}
+
+@media (max-width: 800px) {
+    .actions {
+        flex-direction: column;
+        width: 70vw;
+        height: 150px;
+        align-items: center;
+    }
 }

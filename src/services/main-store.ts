@@ -40,6 +40,15 @@ const mainStore = createSlice({
         createTodo(state, action) {
             state.todos.push(action.payload)
         },
+        editTodo(state, action) {
+            state.todos = state.todos.map(todo =>
+                todo.id == action.payload.id
+                    ?
+                    todo = action.payload
+                    :
+                    todo
+            )
+        },
         deleteTodo(state, action) {
             state.todos = state.todos.filter(todo => todo.id != action.payload.id);
             state.deletedTodos.push(action.payload)
@@ -78,4 +87,4 @@ const mainStore = createSlice({
 })
 
 export default mainStore.reducer;
-export const { fillItemList, createTodo, deleteTodo, clearTrashBin } = mainStore.actions;
+export const { fillItemList, createTodo, deleteTodo, clearTrashBin, editTodo } = mainStore.actions;

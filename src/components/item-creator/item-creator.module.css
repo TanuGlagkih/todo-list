@@ -52,6 +52,13 @@
     font-size: x-large;
 }
 
+.saved {
+    margin-top: 3vh;
+    font-weight: 600;
+    font-size: x-large;
+
+}
+
 .buttonBox {
     display: flex;
     justify-content: center;

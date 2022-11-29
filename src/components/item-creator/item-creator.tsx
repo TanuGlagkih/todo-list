@@ -4,12 +4,13 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { TRootState } from "../../services/config-store";
-import { createTodo } from "../../services/main-store";
+import { createTodo, editTodo } from "../../services/main-store";
 import styles from './item-creator.module.css';
 
 export function ItemCreator() {
     const location = useLocation();
     const dispatch = useDispatch();
+    const [isSaved, setIsSaved] = useState<boolean>(false)
     const { todos } = useSelector((state: TRootState) => state.mainStore);
 
     useEffect(() => {
@@ -27,6 +28,7 @@ export function ItemCreator() {
     });
 
     const onFormChange = (e: any) => {
+        setIsSaved(false);
         setText({
             ...text,
             [e.target.name]: e.target.value
@@ -35,15 +37,28 @@ export function ItemCreator() {
 
     const handleSubmit = (e: any): void => {
         e.preventDefault();
+        setIsSaved(true);
 
-        dispatch(createTodo({
-            ...text,
-            startDate: moment(text.startDate).locale("ru").format('ll'),
-            finishDate: moment(text.finishDate).locale("ru").format('ll'),
-            id: Math.random().toString(35).substring(5),
-            isChecked: false,
-            isDeleted: false
-        }))
+        if (location.pathname == '/create_todo') {
+            dispatch(createTodo({
+                ...text,
+                startDate: moment(text.startDate).locale("ru").format('ll'),
+                finishDate: moment(text.finishDate).locale("ru").format('ll'),
+                id: Math.random().toString(35).substring(5),
+                isChecked: false,
+                isDeleted: false
+            }))
+        } else {
+            dispatch(editTodo({
+                ...text,
+                startDate: moment(text.startDate).locale("ru").format('ll'),
+                finishDate: moment(text.finishDate).locale("ru").format('ll'),
+                id: location.pathname.slice(1),
+                isChecked: false,
+                isDeleted: false
+            }))
+        }
+
 
         setText({
             title: '',
@@ -55,7 +70,12 @@ export function ItemCreator() {
 
     return (
         <section className={styles.box}>
-            <h1 className={styles.header}>Новая задача</h1>
+
+            {location.pathname == '/create_todo' ?
+                <h1 className={styles.header}>Новая задача</h1>
+                :
+                <h1 className={styles.header}>Редактирование</h1>
+            }
 
             <form
                 onSubmit={handleSubmit}
@@ -107,14 +127,18 @@ export function ItemCreator() {
                     </div>
                 </div>
 
-                <div className={styles.buttonBox}>
-                    <Link to='/'>
-                        <button className={styles.button}>Отменить</button>
-                    </Link>
-                    <button type="submit" className={styles.button}>Сохранить</button>
-                </div>
+                {isSaved ?
+                    <div className={styles.saved}>Сохранено</div>
+                    :
+                    <div className={styles.buttonBox}>
+                        <Link to='/'>
+                            <button className={styles.button}>Отменить</button>
+                        </Link>
+                        <button type="submit" className={styles.button}>Сохранить</button>
+                    </div>
+                }
             </form>
 
-        </section>
+        </section >
     )
 }

@@ -1,13 +1,14 @@
-.todos {
-    width: 80%;
-}
+ /* .todos {
+     width: 80vw;
+ } */
 
-.header {
-    margin-left: 35%;
-}
+ .header {
+     margin-left: 40%;
+ }
 
-.container {}
+ .container {}
 
-.list {
-    list-style-type: none;
-}
+ .list {
+     list-style-type: none;
+     padding: 0;
+ }
