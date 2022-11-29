@@ -31,6 +31,6 @@
     "webpack-dev-server": "^4.11.1"
   },
   "dependencies": {
-    "react-hook-form": "^7.39.6"
+    "moment": "^2.29.4"
   }
 }

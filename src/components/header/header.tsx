@@ -7,7 +7,11 @@ export default function Header() {
     return (
         <header className={styles.header}>
             <Link to='/' className={styles.name}>
-                <p >My TodoS</p>
+                <img
+                    className={styles.name}
+                    src={require('../../assets/icons/to-doGreen.svg').default}
+                />
+                <p>My TodoS</p>
             </Link>
         </header>
     )

@@ -1,7 +1,7 @@
 .box {
     display: flex;
     flex-direction: column;
-    margin: 20px;
+    margin: 5vh;
     margin-left: 15vw;
 }
 
@@ -27,6 +27,7 @@
     height: fit-content;
     border-radius: unset;
     margin-bottom: 20px;
+    font-size: larger;
 }
 
 .date {
@@ -42,13 +43,13 @@
 }
 
 .dateField {
-    width: 125px;
+    width: 140px;
     min-height: 40px;
     height: fit-content;
     border-radius: unset;
     margin-bottom: 20px;
     font-weight: 400;
-    font-size: larger;
+    font-size: x-large;
 }
 
 .buttonBox {
@@ -64,10 +65,10 @@
     cursor: pointer;
     font-weight: 400;
     font-size: larger;
-    margin: 25px;
+    margin: 50px;
     border: 2px solid white;
     border-radius: 10px;
-    background-color: #009999;
+    background-color: black;
     color: white;
 }
 

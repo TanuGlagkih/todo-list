@@ -17,6 +17,7 @@
     align-items: center;
     text-decoration: none;
     color: black;
+    cursor: pointer;
 }
 
 .icon {
@@ -25,8 +26,22 @@
     margin: 5px;
 }
 
+.dangerIcon {
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+    color: red;
+}
+
 .action {
     font-size: medium;
     font-weight: 600;
     margin-left: 15px;
+}
+
+.dangerAction {
+    font-size: medium;
+    font-weight: 600;
+    margin-left: 15px;
+    color: red;
 }

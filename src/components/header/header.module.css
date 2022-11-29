@@ -3,13 +3,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: white;
+    background-color: black;
     font-weight: 700;
     font-size: xx-large;
 }
 
 .name {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     text-decoration: none;
     color: #66FFCC;
     margin: 0;
+    margin-right: 10px;
+    width: fit-content;
+    height: 50px;
 }

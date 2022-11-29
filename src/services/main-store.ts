@@ -1,16 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export type TForm = {
+export type TTodo = {
     title: string,
     description: string,
     id: string,
-    startDate: number,
-    finishDate: number,
+    startDate: string,
+    finishDate: string,
+    isChecked: boolean,
+    isDeleted: boolean,
 };
 
 export type TInitState = {
-    formData: TForm,
-    todos: Array<TForm>,
+    formData: TTodo,
+    todos: Array<TTodo>,
+    deletedTodos: Array<TTodo>,
 };
 
 const initialState: TInitState = {
@@ -18,10 +21,13 @@ const initialState: TInitState = {
         title: '',
         description: '',
         id: '',
-        startDate: null,
-        finishDate: null,
+        startDate: '',
+        finishDate: '',
+        isChecked: false,
+        isDeleted: false
     },
     todos: [],
+    deletedTodos: [],
 };
 
 const mainStore = createSlice({
@@ -31,9 +37,17 @@ const mainStore = createSlice({
         fillItemList(state, action) {
             state.todos = action.payload;
         },
-        getFormData(state, action) {
-            state.formData.title = action.payload
+        createTodo(state, action) {
+            state.todos.push(action.payload)
         },
+        deleteTodo(state, action) {
+            state.todos = state.todos.filter(todo => todo.id != action.payload.id);
+            state.deletedTodos.push(action.payload)
+        },
+        clearTrashBin(state) {
+            state.deletedTodos = [];
+        },
+
 
         //     addItemToCart(state, action) {
         //         state.cart.length ?
@@ -64,4 +78,4 @@ const mainStore = createSlice({
 })
 
 export default mainStore.reducer;
-export const { fillItemList, getFormData } = mainStore.actions;
+export const { fillItemList, createTodo, deleteTodo, clearTrashBin } = mainStore.actions;
