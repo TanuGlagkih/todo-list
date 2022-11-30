@@ -1,0 +1,28 @@
+.main {
+    display: flex;
+}
+
+@media (max-width: 1400px) {
+    .main {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.pages {
+    margin: 20px;
+}
+
+.page,
+.currentPage {
+    border: 1px solid black;
+    border-radius: 100%;
+    padding: 5px 10px;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.currentPage {
+    border: 2px solid black;
+    font-weight: 700;
+}

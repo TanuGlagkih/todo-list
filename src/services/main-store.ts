@@ -3,31 +3,43 @@ import { createSlice } from '@reduxjs/toolkit';
 export type TTodo = {
     title: string,
     description: string,
-    id: string,
-    startDate: string,
-    finishDate: string,
-    isChecked: boolean,
-    isDeleted: boolean,
+    id?: string,
+    startDate?: string | number | Date,
+    finishDate?: string | number | Date,
+    isChecked?: boolean,
+    isDeleted?: boolean,
 };
 
 export type TInitState = {
-    formData: TTodo,
     todos: Array<TTodo>,
     deletedTodos: Array<TTodo>,
+
+    currentPageTodos: Array<TTodo>,
+    currentPage: number,
+    todosPerPage: number,
+
+    sorting: boolean,
+    filterByStartDate: boolean,
+    filterByFinishDate: boolean,
+    filterByTitle: boolean,
+    filterChecked: boolean,
+    filterUnchecked: boolean,
 };
 
 const initialState: TInitState = {
-    formData: {
-        title: '',
-        description: '',
-        id: '',
-        startDate: '',
-        finishDate: '',
-        isChecked: false,
-        isDeleted: false
-    },
     todos: [],
     deletedTodos: [],
+
+    currentPageTodos: [],
+    currentPage: 1,
+    todosPerPage: 15,
+
+    sorting: false,
+    filterByStartDate: false,
+    filterByFinishDate: false,
+    filterByTitle: false,
+    filterChecked: false,
+    filterUnchecked: false,
 };
 
 const mainStore = createSlice({
@@ -38,7 +50,8 @@ const mainStore = createSlice({
             state.todos = action.payload;
         },
         createTodo(state, action) {
-            state.todos.push(action.payload)
+            state.todos.unshift(action.payload);
+            state.currentPageTodos.unshift(action.payload);
         },
         editTodo(state, action) {
             state.todos = state.todos.map(todo =>
@@ -48,43 +61,69 @@ const mainStore = createSlice({
                     :
                     todo
             )
+
+            state.currentPageTodos = state.currentPageTodos.map(todo =>
+                todo.id == action.payload.id
+                    ?
+                    todo = action.payload
+                    :
+                    todo
+            )
         },
         deleteTodo(state, action) {
             state.todos = state.todos.filter(todo => todo.id != action.payload.id);
+            state.currentPageTodos = state.currentPageTodos.filter(todo => todo.id != action.payload.id);
             state.deletedTodos.push(action.payload)
         },
         clearTrashBin(state) {
             state.deletedTodos = [];
         },
-
-
-        //     addItemToCart(state, action) {
-        //         state.cart.length ?
-        //             (
-        //                 state.cart.some((item) => (item.id === action.payload.id))
-        //                     ?
-        //                     state.cart.map((item) => (item.id === action.payload.id) ? { ...item, number: ++item.number } : item)
-        //                     :
-        //                     state.cart.push(action.payload)
-        //             ) : (
-        //                 state.cart.push(action.payload)
-        //             )
-        //         state.sum = state.cart.reduce((a, b) => a + b.price * b.number, 0);
-        //     },
-        //     increaseNumber(state, action) {
-        //         state.cart.map((item) => (item.id === action.payload.id) ? { ...item, number: ++item.number } : item);
-        //         state.sum = state.cart.reduce((a, b) => a + b.price * b.number, 0);
-        //     },
-        //     decreaseNumber(state, action) {
-        //         state.cart.map((item) => (item.id === action.payload.id) ? { ...item, number: --item.number } : item);
-        //         state.sum = state.cart.reduce((a, b) => a + b.price * b.number, 0);
-        //     },
-        //     deleteItem(state, action) {
-        //         state.cart = state.cart.filter(item => item.id !== action.payload.id);
-        //         state.sum = state.cart.reduce((a, b) => a + b.price * b.number, 0);
-        //     },
+        setCurrentPage(state, action) {
+            state.currentPage = action.payload;
+            const startIndex = (action.payload == 1) ? 0 : (action.payload - 1) * 15;
+            state.currentPageTodos = state.todos.slice(startIndex, startIndex + 15)
+        },
+        setSorting(state, action) {
+            state.sorting = action.payload
+        },
+        setSortByStartDate(state) {
+            state.filterByStartDate = true;
+            state.filterByFinishDate = false;
+            state.filterChecked = false;
+            state.filterUnchecked = false;
+        },
+        setSortByFinishDate(state) {
+            state.filterByStartDate = false;
+            state.filterByFinishDate = true;
+            state.filterChecked = false;
+            state.filterUnchecked = false;
+        },
+        setSortChecked(state) {
+            state.filterByStartDate = false;
+            state.filterByFinishDate = false;
+            state.filterChecked = true;
+            state.filterUnchecked = false;
+        },
+        setSortUnchecked(state) {
+            state.filterByStartDate = false;
+            state.filterByFinishDate = false;
+            state.filterChecked = false;
+            state.filterUnchecked = true;
+        },
     }
 })
 
 export default mainStore.reducer;
-export const { fillItemList, createTodo, deleteTodo, clearTrashBin, editTodo } = mainStore.actions;
+export const {
+    fillItemList,
+    createTodo,
+    deleteTodo,
+    clearTrashBin,
+    editTodo,
+    setCurrentPage,
+    setSorting,
+    setSortByStartDate,
+    setSortByFinishDate,
+    setSortChecked,
+    setSortUnchecked,
+} = mainStore.actions;

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { TRootState } from "../../services/config-store";
-import { createTodo, editTodo } from "../../services/main-store";
+import { createTodo, editTodo, TTodo } from "../../services/main-store";
 import styles from './item-creator.module.css';
 
 export function ItemCreator() {
@@ -20,7 +20,7 @@ export function ItemCreator() {
         }
     }, [])
 
-    const [text, setText] = useState({
+    const [text, setText] = useState<TTodo>({
         title: '',
         description: '',
         startDate: '',
@@ -42,8 +42,8 @@ export function ItemCreator() {
         if (location.pathname == '/create_todo') {
             dispatch(createTodo({
                 ...text,
-                startDate: moment(text.startDate).locale("ru").format('ll'),
-                finishDate: moment(text.finishDate).locale("ru").format('ll'),
+                startDate: new Date(text.startDate).getDate,
+                finishDate: new Date(text.finishDate).getDate,
                 id: Math.random().toString(35).substring(5),
                 isChecked: false,
                 isDeleted: false
@@ -51,14 +51,13 @@ export function ItemCreator() {
         } else {
             dispatch(editTodo({
                 ...text,
-                startDate: moment(text.startDate).locale("ru").format('ll'),
-                finishDate: moment(text.finishDate).locale("ru").format('ll'),
+                startDate: new Date(text.startDate).getDate,
+                finishDate: new Date(text.finishDate).getDate,
                 id: location.pathname.slice(1),
                 isChecked: false,
                 isDeleted: false
             }))
         }
-
 
         setText({
             title: '',
@@ -107,6 +106,7 @@ export function ItemCreator() {
                         <input
                             type='date'
                             onChange={onFormChange}
+                            //@ts-ignore
                             value={text.startDate}
                             name="startDate"
                             id="startDate"
@@ -119,6 +119,7 @@ export function ItemCreator() {
                         <input
                             type='date'
                             onChange={onFormChange}
+                            //@ts-ignore
                             value={text.finishDate}
                             name="finishDate"
                             id="finishDate"

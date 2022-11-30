@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from './item.module.css'
 import swal from 'sweetalert';
 import { deleteTodo, editTodo, TTodo } from "../../services/main-store";
 import { useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
+import moment from "moment";
 
 export function Item(props: { item: TTodo }) {
     const dispatch = useDispatch();
     const location = useLocation();
+    const [todoChecked, setTodoChecked] = useState(props.item.isChecked);
+
+    const startDate = moment(props.item.startDate).locale("ru").format('ll');
+    const finishDate = moment(props.item.finishDate).locale("ru").format('ll');
 
     const removeTodo = () => {
         swal("Вы действительно хотите удалить задачу?", {
@@ -30,6 +35,7 @@ export function Item(props: { item: TTodo }) {
 
     const setChecked = () => {
         dispatch(editTodo({ ...props.item, isChecked: !props.item.isChecked }));
+        setTodoChecked(!todoChecked);
     }
 
     return (
@@ -41,6 +47,7 @@ export function Item(props: { item: TTodo }) {
                         type='checkbox'
                         className={styles.checkbox}
                         disabled={(location.pathname != '/trash_bin') ? false : true}
+                        checked={todoChecked}
                     />
                     <h2>{props.item.title}</h2>
                 </div>
@@ -57,7 +64,7 @@ export function Item(props: { item: TTodo }) {
             </div>
             <p className={styles.description}>{props.item.description}</p>
             <div className={styles.date}>
-                <p>с {props.item.startDate} по {props.item.finishDate}</p>
+                <p>с {startDate} по {finishDate}</p>
             </div>
         </div >
     )
