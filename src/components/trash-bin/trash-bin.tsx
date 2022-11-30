@@ -9,14 +9,12 @@ export function TrashBin() {
 
     return (
         <section className={styles.todos}>
-            <div className={styles.container}>
-                <h1 className={styles.header}>Корзина</h1>
-                <ul className={styles.list}>
-                    {deletedTodos?.map(item => (
-                        <Item item={item} key={item.id} />
-                    ))}
-                </ul>
-            </div>
+            <h1 className={styles.header}>Корзина</h1>
+            <ul className={styles.list}>
+                {deletedTodos?.map(item => (
+                    <Item item={item} key={item.id} />
+                ))}
+            </ul>
         </section>
     )
 }

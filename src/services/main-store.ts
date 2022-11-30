@@ -84,7 +84,11 @@ const mainStore = createSlice({
             state.currentPageTodos = state.todos.slice(startIndex, startIndex + 15)
         },
         setSorting(state, action) {
-            state.sorting = action.payload
+            state.sorting = action.payload;
+            state.filterByStartDate = false;
+            state.filterByFinishDate = false;
+            state.filterChecked = false;
+            state.filterUnchecked = false;
         },
         setSortByStartDate(state) {
             state.filterByStartDate = true;

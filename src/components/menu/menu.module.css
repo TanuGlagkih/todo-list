@@ -54,11 +54,19 @@
     }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1150px) {
     .actions {
         flex-direction: column;
         width: 70vw;
         height: 150px;
         align-items: center;
+    }
+
+    .icon {
+        display: none;
+    }
+
+    .action {
+        margin: 0;
     }
 }

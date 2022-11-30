@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { TRootState } from "../../services/config-store";
-import { clearTrashBin, setSortByFinishDate, setSortByStartDate, setSortChecked, setSorting, setSortUnchecked } from "../../services/main-store";
+import { clearTrashBin, setCurrentPage, setSortByFinishDate, setSortByStartDate, setSortChecked, setSorting, setSortUnchecked } from "../../services/main-store";
 import styles from './menu.module.css'
 
 export function Menu() {
@@ -16,6 +16,7 @@ export function Menu() {
 
     const sort = () => {
         dispatch(setSorting(!sorting));
+        if (sorting) dispatch(setCurrentPage(1));
     }
 
     return (
@@ -65,15 +66,26 @@ export function Menu() {
                 </>
             ) : (
                 <>
-
                     {location.pathname === '/' ? (
-                        <Link to='/create_todo' className={styles.actionBox}>
-                            <img
-                                src={require('../../assets/icons/plus-circle.svg').default}
-                                className={styles.icon}
-                            />
-                            <p className={styles.action}>Добавить задачу</p>
-                        </Link>
+                        <>
+                            <Link to='/create_todo' className={styles.actionBox}>
+                                <img
+                                    src={require('../../assets/icons/plus-circle.svg').default}
+                                    className={styles.icon}
+                                />
+                                <p className={styles.action}>Добавить задачу</p>
+                            </Link>
+
+                            <div className={styles.actionBox}
+                                onClick={sort}>
+                                <img
+                                    src={require('../../assets/icons/funnel.svg').default}
+                                    className={styles.icon}
+                                />
+                                <p className={styles.action}
+                                >Фильтровать</p>
+                            </div>
+                        </>
                     ) : (
                         <Link to='/' className={styles.actionBox}>
                             <img
@@ -83,16 +95,6 @@ export function Menu() {
                             <p className={styles.action}>К списку задач</p>
                         </Link>
                     )}
-
-                    <div className={styles.actionBox}
-                        onClick={sort}>
-                        <img
-                            src={require('../../assets/icons/funnel.svg').default}
-                            className={styles.icon}
-                        />
-                        <p className={styles.action}
-                        >Фильтровать</p>
-                    </div>
 
                     {location.pathname == '/trash_bin' ? (
                         <div className={styles.actionBox} onClick={removeTrash}>

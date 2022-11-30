@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { TRootState } from "../../services/config-store";
 import { TTodo } from "../../services/main-store";
@@ -16,45 +16,30 @@ export function ItemList() {
         filterChecked,
         filterUnchecked } = useSelector((state: TRootState) => state.mainStore);
 
-    let sortedTodos = todos;
-    console.log(sortedTodos)
-    useEffect(() => {
+    let sortedTodos: Array<TTodo> = [];
+
+    if (sorting) {
         if (filterByStartDate) {
-            sortedTodos.forEach((todo) => {
-                return todo.startDate = new Date(todo.startDate)
-            })
-            sortedTodos.sort((a, b) => a.startDate > b.startDate ? 1 : -1);
-
+            sortedTodos = JSON.parse(JSON.stringify(todos))
+            sortedTodos.sort((a, b) => new Date(a.startDate) < new Date(b.startDate) ? -1 : 1);
         } else if (filterByFinishDate) {
-            sortedTodos = todos.sort((a, b) => a.finishDate > b.finishDate ? 1 : -1)
+            sortedTodos = JSON.parse(JSON.stringify(todos))
+            sortedTodos.sort((a, b) => new Date(a.finishDate) < new Date(b.finishDate) ? -1 : 1);
         } else if (filterChecked) {
-            sortedTodos = todos.filter(a => a.isChecked)
+            sortedTodos = todos.filter(a => a.isChecked);
         } else if (filterUnchecked) {
-            sortedTodos = todos.filter(a => !a.isChecked)
-        } else {
-            return
+            sortedTodos = todos.filter(a => !a.isChecked);
         }
-    }, [filterByStartDate,
-        filterByFinishDate,
-        filterByTitle,
-        filterChecked,
-        filterUnchecked])
-
-
-
-
-    console.log(sortedTodos)
+    }
 
     return (
         <section className={styles.todos}>
-            <div className={styles.container}>
-                <h1 className={styles.header}>Задачи</h1>
-                <ul className={styles.list}>
-                    {(sorting ? sortedTodos : currentPageTodos)?.map(item => (
-                        <Item item={item} key={item.id} />
-                    ))}
-                </ul>
-            </div>
+            <h1 className={styles.header}>Задачи</h1>
+            <ul className={styles.list}>
+                {((sorting && sortedTodos.length) ? sortedTodos : currentPageTodos)?.map(item => (
+                    <Item item={item} key={item.id} />
+                ))}
+            </ul>
         </section>
     )
 }

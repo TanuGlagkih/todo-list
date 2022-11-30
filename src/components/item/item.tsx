@@ -39,7 +39,7 @@ export function Item(props: { item: TTodo }) {
     }
 
     return (
-        <div className={styles.box}>
+        <div className={(location.pathname != '/trash_bin') ? styles.box : styles.deleted}>
             <div className={styles.titleBox}>
                 <div className={styles.titleBox}>
                     <input

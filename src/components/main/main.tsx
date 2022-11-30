@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { ItemList } from '../item-list/item-list';
 import { ItemCreator } from '../item-creator/item-creator';
 import { TrashBin } from '../trash-bin/trash-bin';
@@ -10,6 +10,7 @@ import { TRootState } from '../../services/config-store';
 import { setCurrentPage } from '../../services/main-store';
 
 export function Main() {
+    const location = useLocation();
     const dispatch = useDispatch();
     const { todos, currentPage, sorting } = useSelector((state: TRootState) => state.mainStore)
     const pagesCount = Math.ceil(todos.length / 15);
@@ -25,15 +26,18 @@ export function Main() {
                 <Route path="/trash_bin" element={<TrashBin />} />
             </Routes>
             <div className={styles.pages}>
-                {!sorting && pages.map((page, index) =>
-                    <span
-                        key={index}
-                        className={currentPage == page ? styles.currentPage : styles.page}
-                        onClick={() => dispatch(setCurrentPage(page))}
-                    >
-                        {page}
-                    </span>
-                )}
+                {
+                    !sorting &&
+                    location.pathname == '/' &&
+                    pages.map((page, index) =>
+                        <span
+                            key={index}
+                            className={currentPage == page ? styles.currentPage : styles.page}
+                            onClick={() => dispatch(setCurrentPage(page))}
+                        >
+                            {page}
+                        </span>
+                    )}
             </div>
         </main>
     )

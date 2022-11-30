@@ -17,6 +17,7 @@ export function ItemCreator() {
         if (location.pathname != '/create_todo') {
             const todo = todos?.find(todo => todo.id == location.pathname.slice(1));
             setText({ ...todo });
+            console.log(todo)
         }
     }, [])
 
@@ -42,8 +43,8 @@ export function ItemCreator() {
         if (location.pathname == '/create_todo') {
             dispatch(createTodo({
                 ...text,
-                startDate: new Date(text.startDate).getDate,
-                finishDate: new Date(text.finishDate).getDate,
+                startDate: text.startDate,
+                finishDate: text.finishDate,
                 id: Math.random().toString(35).substring(5),
                 isChecked: false,
                 isDeleted: false
@@ -51,8 +52,8 @@ export function ItemCreator() {
         } else {
             dispatch(editTodo({
                 ...text,
-                startDate: new Date(text.startDate).getDate,
-                finishDate: new Date(text.finishDate).getDate,
+                startDate: text.startDate,
+                finishDate: text.finishDate,
                 id: location.pathname.slice(1),
                 isChecked: false,
                 isDeleted: false
@@ -111,6 +112,7 @@ export function ItemCreator() {
                             name="startDate"
                             id="startDate"
                             className={styles.dateField}
+                            required
                         />
                     </div>
 
@@ -124,6 +126,7 @@ export function ItemCreator() {
                             name="finishDate"
                             id="finishDate"
                             className={styles.dateField}
+                            required
                         />
                     </div>
                 </div>

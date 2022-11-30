@@ -1,8 +1,7 @@
 .box {
     display: flex;
     flex-direction: column;
-    margin: 5vh;
-    margin-left: 15vw;
+    margin: 5vh 5vw;
 }
 
 .header {
@@ -32,8 +31,7 @@
 
 .date {
     display: flex;
-    justify-content: space-between;
-    width: 30vw;
+    justify-content: space-around;
 }
 
 .container {
@@ -56,14 +54,12 @@
     margin-top: 3vh;
     font-weight: 600;
     font-size: x-large;
-
 }
 
 .buttonBox {
     display: flex;
     justify-content: center;
     align-self: center;
-    width: 30vw;
 }
 
 .button {
@@ -83,4 +79,51 @@
     background-color: white;
     color: black;
     border: 2px solid black;
+}
+
+@media (max-width: 1400px) {
+    .textField {
+        width: 60vw;
+    }
+
+    .title {
+        font-weight: 400;
+        font-size: large;
+    }
+}
+
+@media (max-width: 800px) {
+    .textField {
+        width: 90vw;
+    }
+
+    .title {
+        font-weight: 400;
+        font-size: medium;
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 450px) {
+    .box {
+        margin: 0;
+    }
+
+    .textField {
+        width: 300px;
+    }
+
+    .title {
+        font-weight: 400;
+        font-size: small;
+    }
+
+    .dateField {
+        width: 100px;
+        font-size: small;
+    }
+
+    .form {
+        align-items: center;
+    }
 }

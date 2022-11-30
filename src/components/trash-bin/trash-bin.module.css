@@ -1,13 +1,8 @@
-.todos {
-    width: 80%;
-}
-
 .header {
-    margin-left: 35%;
+    text-align: center;
 }
-
-.container {}
 
 .list {
     list-style-type: none;
+    padding: 0;
 }
