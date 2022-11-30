@@ -46,6 +46,10 @@
     color: red;
 }
 
+.search {
+    height: 30px;
+}
+
 @media (max-width: 1400px) {
     .actions {
         flex-direction: row;

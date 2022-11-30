@@ -14,7 +14,8 @@ export function ItemList() {
         filterByFinishDate,
         filterByTitle,
         filterChecked,
-        filterUnchecked } = useSelector((state: TRootState) => state.mainStore);
+        filterUnchecked,
+        inputData } = useSelector((state: TRootState) => state.mainStore);
 
     let sortedTodos: Array<TTodo> = [];
 
@@ -30,15 +31,26 @@ export function ItemList() {
         } else if (filterUnchecked) {
             sortedTodos = todos.filter(a => !a.isChecked);
         }
+    } else if (filterByTitle) {
+        inputData
+            ?
+            sortedTodos = todos.filter(todo => {
+                return todo.title.toLowerCase().includes(inputData.toLowerCase())
+            })
+            :
+            todos
     }
 
     return (
         <section className={styles.todos}>
             <h1 className={styles.header}>Задачи</h1>
             <ul className={styles.list}>
-                {((sorting && sortedTodos.length) ? sortedTodos : currentPageTodos)?.map(item => (
-                    <Item item={item} key={item.id} />
-                ))}
+                {((sorting || filterByTitle)
+                    && sortedTodos.length
+                    ? sortedTodos
+                    : currentPageTodos)?.map(item => (
+                        <Item item={item} key={item.id} />
+                    ))}
             </ul>
         </section>
     )

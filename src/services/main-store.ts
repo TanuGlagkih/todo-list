@@ -24,6 +24,7 @@ export type TInitState = {
     filterByTitle: boolean,
     filterChecked: boolean,
     filterUnchecked: boolean,
+    inputData: string
 };
 
 const initialState: TInitState = {
@@ -40,6 +41,7 @@ const initialState: TInitState = {
     filterByTitle: false,
     filterChecked: false,
     filterUnchecked: false,
+    inputData: ''
 };
 
 const mainStore = createSlice({
@@ -87,32 +89,46 @@ const mainStore = createSlice({
             state.sorting = action.payload;
             state.filterByStartDate = false;
             state.filterByFinishDate = false;
+            state.filterByTitle = false;
             state.filterChecked = false;
             state.filterUnchecked = false;
         },
         setSortByStartDate(state) {
             state.filterByStartDate = true;
             state.filterByFinishDate = false;
+            state.filterByTitle = false;
             state.filterChecked = false;
             state.filterUnchecked = false;
         },
         setSortByFinishDate(state) {
             state.filterByStartDate = false;
             state.filterByFinishDate = true;
+            state.filterByTitle = false;
             state.filterChecked = false;
             state.filterUnchecked = false;
         },
         setSortChecked(state) {
             state.filterByStartDate = false;
             state.filterByFinishDate = false;
+            state.filterByTitle = false;
             state.filterChecked = true;
             state.filterUnchecked = false;
         },
         setSortUnchecked(state) {
             state.filterByStartDate = false;
             state.filterByFinishDate = false;
+            state.filterByTitle = false;
             state.filterChecked = false;
             state.filterUnchecked = true;
+        },
+        setSortByTitle(state, action) {
+            state.inputData = action.payload;
+
+            state.filterByStartDate = false;
+            state.filterByFinishDate = false;
+            state.filterByTitle = true;
+            state.filterChecked = false;
+            state.filterUnchecked = false;
         },
     }
 })
@@ -130,4 +146,5 @@ export const {
     setSortByFinishDate,
     setSortChecked,
     setSortUnchecked,
+    setSortByTitle
 } = mainStore.actions;

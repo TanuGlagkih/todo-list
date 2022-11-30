@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { TRootState } from "../../services/config-store";
-import { clearTrashBin, setCurrentPage, setSortByFinishDate, setSortByStartDate, setSortChecked, setSorting, setSortUnchecked } from "../../services/main-store";
+import { clearTrashBin, setCurrentPage, setSortByFinishDate, setSortByStartDate, setSortByTitle, setSortChecked, setSorting, setSortUnchecked } from "../../services/main-store";
 import styles from './menu.module.css'
 
 export function Menu() {
@@ -17,6 +17,10 @@ export function Menu() {
     const sort = () => {
         dispatch(setSorting(!sorting));
         if (sorting) dispatch(setCurrentPage(1));
+    }
+
+    const search = (data: string) => {
+        dispatch(setSortByTitle(data))
     }
 
     return (
@@ -84,6 +88,19 @@ export function Menu() {
                                 />
                                 <p className={styles.action}
                                 >Фильтровать</p>
+                            </div>
+
+                            <div className={styles.actionBox}>
+                                <img
+                                    src={require('../../assets/icons/search.svg').default}
+                                    className={styles.icon}
+                                />
+                                <input
+                                    type='text'
+                                    placeholder="Поиск по названию"
+                                    onChange={e => search(e.target.value)}
+                                    className={styles.search}
+                                />
                             </div>
                         </>
                     ) : (
