@@ -104,7 +104,11 @@ export function Menu() {
                             </div>
                         </>
                     ) : (
-                        <Link to='/' className={styles.actionBox}>
+                        <Link
+                            to='/'
+                            className={styles.actionBox}
+                            onClick={() => dispatch(setCurrentPage(1))}
+                        >
                             <img
                                 src={require('../../assets/icons/to-do.svg').default}
                                 className={styles.icon}

@@ -19,6 +19,8 @@ export function ItemList() {
 
     let sortedTodos: Array<TTodo> = [];
 
+    console.log(todos[todos.length - 1])
+
     if (sorting) {
         if (filterByStartDate) {
             sortedTodos = JSON.parse(JSON.stringify(todos))
@@ -49,7 +51,14 @@ export function ItemList() {
                     && sortedTodos.length
                     ? sortedTodos
                     : currentPageTodos)?.map(item => (
-                        <Item item={item} key={item.id} />
+                        <li key={item.id}>
+                            <Item item={item} key={item.id} />
+                            {
+                                (!sorting && !filterByTitle && item == todos[todos.length - 1])
+                                &&
+                                <p className={styles.listEnd}>Конец списка</p>
+                            }
+                        </li>
                     ))}
             </ul>
         </section>

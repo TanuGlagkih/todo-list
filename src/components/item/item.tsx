@@ -66,6 +66,6 @@ export function Item(props: { item: TTodo }) {
             <div className={styles.date}>
                 <p>с {startDate} по {finishDate}</p>
             </div>
-        </div >
+        </div>
     )
 }

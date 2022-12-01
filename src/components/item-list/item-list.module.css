@@ -6,3 +6,8 @@
      list-style-type: none;
      padding: 0;
  }
+
+ .listEnd {
+     font-weight: 400;
+     font-size: x-large;
+ }

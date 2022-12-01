@@ -35,11 +35,11 @@ module.exports = {
                     loader: 'url-loader',
                 },
             },
-            // {
-            //     test: /\.woff2?$/i,
-            //     type: 'asset/resource',
-            //     dependency: { not: ['url'] },
-            // },
+            {
+                test: /\.woff2?$/i,
+                type: 'asset/resource',
+                dependency: { not: ['url'] },
+            },
         ],
     },
     resolve: {
@@ -54,12 +54,12 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './src/index.html',
         }),
-        // new CopyPlugin({
-        //     patterns: [
-        //         {
-        //             from: "src/assets/fonts", to: "dist/assets/fonts"
-        //         },
-        //     ],
-        // }),
+        new CopyPlugin({
+            patterns: [
+                {
+                    from: "src/assets/fonts", to: "dist/assets/fonts"
+                },
+            ],
+        }),
     ],
 };
